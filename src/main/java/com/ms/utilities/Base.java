@@ -11,10 +11,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -32,14 +34,19 @@ public class Base {
 		prop.load(reader);
 		
 		  final String URL = "https://nirmalraj66:a85b1186-16d7-4334-8e66-d4cb4d19b0b1@ondemand.us-west-1.saucelabs.com:443/wd/hub";
-		  DesiredCapabilities caps = DesiredCapabilities.chrome();
-          caps = DesiredCapabilities.chrome();
-		  caps.setCapability("platform", "Windows");
-		  caps.setCapability("version", "90.0");
-          caps.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-		  caps.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-		  caps.acceptInsecureCerts();
-		  WebDriver driver=new RemoteWebDriver(new URL(URL), caps);
+		 
+		  MutableCapabilities sauceOptions = new MutableCapabilities();
+
+		  ChromeOptions browserOptions = new ChromeOptions();
+		  browserOptions.setExperimentalOption("w3c", true);
+		  browserOptions.setCapability("platformName", "Windows 10");
+		  browserOptions.setCapability("browserVersion", "90.0");
+		  browserOptions.setCapability("sauce:options", sauceOptions);
+
+         	  
+		  browserOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+		  browserOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+		  WebDriver driver=new RemoteWebDriver(new URL(URL), browserOptions);
 
 		
 		
