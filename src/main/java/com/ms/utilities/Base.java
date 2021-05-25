@@ -36,14 +36,24 @@ public class Base {
 		  final String URL = "https://nirmalraj66:a85b1186-16d7-4334-8e66-d4cb4d19b0b1@ondemand.us-west-1.saucelabs.com:443/wd/hub";
 		 
 		  
-		  DesiredCapabilities caps = new DesiredCapabilities();
 		  
-		  caps.setBrowserName(System.getenv("SELENIUM_BROWSER"));
-		  caps.setVersion(System.getenv("SELENIUM_VERSION"));
-		  caps.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
-          caps.acceptInsecureCerts();	  
 		  
-		  WebDriver driver=new RemoteWebDriver(new URL(URL), caps);
+		  String sauceUserName = System.getenv("SAUCE_USERNAME");
+	        String sauceAccessKey = System.getenv("SAUCE_ACCESS_KEY");
+	        String sauceURL = "https://ondemand.us-west-1.saucelabs.com:443/wd/hub";
+	       
+	        
+	        DesiredCapabilities capabilities = new DesiredCapabilities();
+	        capabilities.setCapability("username", sauceUserName);
+	        capabilities.setCapability("accessKey", sauceAccessKey);
+		  
+	        capabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
+	        capabilities.setVersion(System.getenv("SELENIUM_VERSION"));
+	        capabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
+
+	        capabilities.acceptInsecureCerts();	  
+		  
+		  WebDriver driver=new RemoteWebDriver(new URL(URL), capabilities);
 
 		
 		
