@@ -35,18 +35,15 @@ public class Base {
 		
 		  final String URL = "https://nirmalraj66:a85b1186-16d7-4334-8e66-d4cb4d19b0b1@ondemand.us-west-1.saucelabs.com:443/wd/hub";
 		 
-		  MutableCapabilities sauceOptions = new MutableCapabilities();
-
-		  ChromeOptions browserOptions = new ChromeOptions();
-		  browserOptions.setExperimentalOption("w3c", true);
-		  browserOptions.setCapability("platformName", "Windows 10");
-		  browserOptions.setCapability("browserVersion", "90.0");
-		  browserOptions.setCapability("sauce:options", sauceOptions);
-
-         	  
-		  browserOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-		  browserOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-		  WebDriver driver=new RemoteWebDriver(new URL(URL), browserOptions);
+		  
+		  DesiredCapabilities caps = new DesiredCapabilities();
+		  
+		  caps.setBrowserName(System.getenv("SELENIUM_BROWSER"));
+		  caps.setVersion(System.getenv("SELENIUM_VERSION"));
+		  caps.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
+          caps.acceptInsecureCerts();	  
+		  
+		  WebDriver driver=new RemoteWebDriver(new URL(URL), caps);
 
 		
 		
